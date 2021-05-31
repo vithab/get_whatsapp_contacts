@@ -1,8 +1,9 @@
 require 'nokogiri'
 
+file_name = 'data'
 contacts = []
 
-file = File.open('./html/data.html', 'r') { |file| file.readline }
+file = File.open("./html/#{file_name}.html", 'r') { |file| file.readline }
 
 document = Nokogiri::HTML(file)
 
@@ -14,4 +15,4 @@ divs.each do |div|
   contacts.push("#{phone} - #{name}")
 end
 
-contacts.map { |c| puts c }
+contacts.map { |c| File.write("./result/#{file_name}.txt", "#{c}\n", mode: 'a') }
